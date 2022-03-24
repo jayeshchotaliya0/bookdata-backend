@@ -3,7 +3,6 @@ const bodyParser    = require('body-parser');
 var cors = require('cors');
 
 
-
 // express app
 const app = express();
 
@@ -38,7 +37,7 @@ const employeeRoute  =  require('./src/routes/emp_routes');
 app.use('/api/v1/employee',employeeRoute);
 
 
-// app.use('/api/v1/employee/:id',employeeRoute);
+// app.use('/api/v1/login_process',employeeRoute);
 
 app.listen(port , ()=>{
     console.log(`port is ${port}`);

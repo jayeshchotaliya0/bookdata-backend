@@ -17,11 +17,11 @@ exports.getEmployeeList = (req,res) =>
     })
 }
 
-
 // single id get 
 exports.getEmployeeById = (req,res) =>
 {
 
+    
     EmployeeModel.getEmployeeById(req.params.id,(err,employee)=>{
         if(err)
         res.send(err);
@@ -33,12 +33,41 @@ exports.getEmployeeById = (req,res) =>
 
 ///Create employee
 
+
+exports.login_process = (req,res)=>
+{
+    const employeeReqData = new  EmployeeModel(req.body);
+    console.log("5555 ",employeeReqData);
+
+    if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
+    {
+        res.send(400).send({success : false , message : 'Please fill all Fields'});
+    }
+    else
+    {
+      EmployeeModel.login_process_model(employeeReqData,(err,employee)=>{
+          if(err)
+          {
+            res.send(err);
+            console.log('Login data error controller');
+
+          }
+          else
+          {
+            res.json({status : true, message : 'Login data Successfully',data : employee });
+          }
+          
+      })
+    }
+
+}
+
+
 exports.createNewEmployee = (req,res)=>
 {
-    
     const employeeReqData = new  EmployeeModel(req.body);
 
-    console.log("jkjkjk",req.body);
+    console.log("6666 ",employeeReqData);
 
     if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
     {
@@ -63,6 +92,35 @@ exports.createNewEmployee = (req,res)=>
 
 }
 
+// **********Book added *****************
+exports.booksave_data = (req,res)=>
+{
+    const employeeReqData = new  EmployeeModel(req.body);
+
+    // console.log("77777 ",req.body);
+
+    if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
+    {
+        res.send(400).send({success : false , message : 'Please fill all Fields'});
+    }
+    else
+    {
+      EmployeeModel.createbook(employeeReqData,(err,employee)=>{
+          if(err)
+          {
+            res.send(err);
+            console.log('eeeeeeeeeeeeeeeeeeeeeeeeeee');
+
+          }
+          else
+          {
+            res.json({status : true, message : 'Employee Created Successfully',data : employee });
+          }
+          
+      })
+    }
+
+}
 
 //update employee
 
@@ -87,6 +145,9 @@ exports.updateEmployee = (req,res) =>{
 //delete employeee
 exports.deleteEmployee = (req,res)=>
 {
+    // const employeeReqData = new  EmployeeModel(req.body);
+    // console.log("$$$$$$$$$$$",req.params.id);
+
     EmployeeModel.deleteEmployee(req.params.id, (err,employee)=>{
         if(err)
         res.send(err);
