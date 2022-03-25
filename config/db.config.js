@@ -1,13 +1,4 @@
-const Pool = require('pg').Pool
-
-// const dbConn = mysql.createConnection({
-//     host : 'localhost',
-//     user : "root",
-//     password : "root",
-//     database : 'nodejs',
-
-// });
-
+const Pool = require('pg').Pool;
 
 const pool = new Pool({
   user: 'postgres',
@@ -16,19 +7,6 @@ const pool = new Pool({
   password: 'postgres',
   port: 5432,
 })
-
-// pool.connect();
-
-// pool.query(query, (err, response) => {
-//     if (err) {
-//       console.error(err);
-//       return;
-//     }
-//     console.log('Table Users is successfully created');
-//     });
-    
-
-
 
 pool.connect(function(err){
     if(err)

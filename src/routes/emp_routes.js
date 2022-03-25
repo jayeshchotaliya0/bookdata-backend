@@ -1,29 +1,29 @@
 const express = require("express");
 
-
 const router = express.Router();
 
-const EmployeeController = require('../controller/emp_controller');
+const User_Controller = require('../controller/emp_controller');
 
-router.get('/all_book',EmployeeController.getEmployeeList);
+//****create new User */******* */
+router.post('/',User_Controller.createNewUser);
 
-router.get('/edit/:id',EmployeeController.getEmployeeById);
+//**** User Login ******* 
+router.post('/login',User_Controller.login_process);
 
-//create new Employee
-router.post('/',EmployeeController.createNewEmployee);
+//**** Book Added *******
+router.post('/booksave',User_Controller.book_add);
 
-router.post('/login_process',EmployeeController.login_process);
-router.post('/booksave',EmployeeController.booksave_data);
+//**** All Book ********* 
+router.get('/all_book',User_Controller.getBookListing);
 
+//**** All Book Edit ********* 
+router.get('/edit/:id',User_Controller.getSingleDataGet);
 
-// update employee
+//***** update Book *********
+router.put('/edit/:id',User_Controller.updateEmployee);
 
-router.put('/edit/:id',EmployeeController.updateEmployee);
-
-// delete employee
-
-router.delete('/delete/:id',EmployeeController.deleteEmployee);
-
+//***** delete employee *********
+router.delete('/delete/:id',User_Controller.deleteEmployee);
 
 
 module.exports =router;
