@@ -1,43 +1,33 @@
 
-const Employee = require('../model/emp_model');
-const EmployeeModel = require('../model/emp_model'); 
+// const Employee = require('../model/emp_model');
+const UserModel = require('../model/emp_model'); 
 
-exports.getEmployeeList = (req,res) =>
+exports.getBookListing = (req,res) =>
 {
-    // console.log("Employee list");
-    EmployeeModel.getAllEmployee((err , employee)=>{
-        console.log("we are here");
-
+    UserModel.getAllBook((err , book)=>
+    {
         if(err)
          res.send(err);
-         console.log('Employee' , employee);
-
-        
-         res.send(employee);
+         res.send(book);
     })
 }
 
-// single id get 
-exports.getEmployeeById = (req,res) =>
-{
-
-    
-    EmployeeModel.getEmployeeById(req.params.id,(err,employee)=>{
+//******* single Book Get 
+exports.getSingleDataGet = (req,res) =>
+{ 
+    UserModel.getBookById(req.params.id,(err,book)=>{
         if(err)
         res.send(err);
-        console.log('single employee data');
-        res.send(employee);
-        
+        console.log('Single Book Data Get');
+        res.send(book);
     })
 }
 
-///Create employee
-
-
+//************User Login************* */
 exports.login_process = (req,res)=>
 {
-    const employeeReqData = new  EmployeeModel(req.body);
-    console.log("5555 ",employeeReqData);
+    const userReqData = new  UserModel(req.body);
+    console.log("5555 ",userReqData);
 
     if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
     {
@@ -45,12 +35,11 @@ exports.login_process = (req,res)=>
     }
     else
     {
-      EmployeeModel.login_process_model(employeeReqData,(err,employee)=>{
+      UserModel.login_model(userReqData,(err,employee)=>{
           if(err)
           {
             res.send(err);
             console.log('Login data error controller');
-
           }
           else
           {
@@ -62,12 +51,10 @@ exports.login_process = (req,res)=>
 
 }
 
-
-exports.createNewEmployee = (req,res)=>
+//*******Create User */
+exports.createNewUser = (req,res)=>
 {
-    const employeeReqData = new  EmployeeModel(req.body);
-
-    console.log("6666 ",employeeReqData);
+    const UserReqData = new  UserModel(req.body);
 
     if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
     {
@@ -75,29 +62,25 @@ exports.createNewEmployee = (req,res)=>
     }
     else
     {
-      EmployeeModel.createEmployee(employeeReqData,(err,employee)=>{
+      UserModel.createUser(UserReqData,(err,user)=>{
           if(err)
           {
             res.send(err);
-            console.log('eeeeeeeeeeeeeeeeeeeeeeeeeee');
-
+            console.log('Error');
           }
           else
           {
-            res.json({status : true, message : 'Employee Created Successfully',data : employee });
+            res.json({status : true, message : 'Employee Created Successfully',data : user });
           }
           
       })
     }
-
 }
 
 // **********Book added *****************
-exports.booksave_data = (req,res)=>
+exports.book_add = (req,res)=>
 {
-    const employeeReqData = new  EmployeeModel(req.body);
-
-    // console.log("77777 ",req.body);
+    const bookReqData = new  UserModel(req.body);
 
     if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
     {
@@ -105,27 +88,23 @@ exports.booksave_data = (req,res)=>
     }
     else
     {
-      EmployeeModel.createbook(employeeReqData,(err,employee)=>{
+      UserModel.createbook(bookReqData,(err,book)=>{
           if(err)
           {
             res.send(err);
-            console.log('eeeeeeeeeeeeeeeeeeeeeeeeeee');
-
+            console.log('error ');
           }
           else
           {
-            res.json({status : true, message : 'Employee Created Successfully',data : employee });
+            res.json({status : true, message : 'Employee Created Successfully',data : book });
           }
-          
       })
     }
-
 }
 
 //update employee
-
 exports.updateEmployee = (req,res) =>{
-    const employeeReqData = new  EmployeeModel(req.body);
+    const employeeReqData = new  UserModel(req.body);
 
     if(req.body.contructor=== Object && Object.keys(req.body).length === 0)
     {
@@ -133,7 +112,7 @@ exports.updateEmployee = (req,res) =>{
     }
     else
     {
-      EmployeeModel.updateEmployee(req.params.id,employeeReqData,(err,employee)=>{
+      UserModel.updateEmployee(req.params.id,employeeReqData,(err,employee)=>{
           if(err)
             res.send(err);
             res.json({status : true, message : 'Employee Updated Successfully',data : employee });
@@ -145,10 +124,7 @@ exports.updateEmployee = (req,res) =>{
 //delete employeee
 exports.deleteEmployee = (req,res)=>
 {
-    // const employeeReqData = new  EmployeeModel(req.body);
-    // console.log("$$$$$$$$$$$",req.params.id);
-
-    EmployeeModel.deleteEmployee(req.params.id, (err,employee)=>{
+    UserModel.deleteEmployee(req.params.id, (err,employee)=>{
         if(err)
         res.send(err);
         res.json({success : true, message : 'deleted successfully' });
